@@ -19,8 +19,11 @@ public class PaymentService {
         boolean success = random.nextInt(10) < 8; // 80% success
 
         if (success) {
+            System.out.println("💳 Payment SUCCESS for " + orderId);
             kafkaTemplate.send("payment.success", orderId);
         } else {
+            System.out.println("❌ Payment FAILED for " + orderId);
+            kafkaTemplate.send("payment.failed", orderId);
             throw new RuntimeException("Payment failed");
         }
     }

@@ -14,10 +14,12 @@ public class OrderCreatedListener {
     private final PaymentService paymentService;
 
     @KafkaListener(
-        topics = "order.created",
+        topics = "inventory.reserved",
         groupId = "payment-group"
     )
-    public void handleOrderCreated(String orderId) {
-        paymentService.processPayment(orderId);
+    public void handleInventoryReserved(String message) {
+        // message contains productId + quantity
+        paymentService.processPayment(message);
     }
 }
+
