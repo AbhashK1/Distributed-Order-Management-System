@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: order-service
+
+  datasource:
+    url: jdbc:postgresql://postgres:5432/orderdb
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  kafka:
+    bootstrap-servers: kafka:9092
+
+  redis:
+    host: redis
