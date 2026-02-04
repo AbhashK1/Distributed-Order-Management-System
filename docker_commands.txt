@@ -18,3 +18,24 @@ docker exec -it distributed-order-management-kafka-1 kafka-console-consumer.sh \
  --bootstrap-server kafka:9092 \
  --topic order.created \
  --from-beginning
+
+
+ ================================================================================================
+CREATE DATABASE orderdb;
+CREATE DATABASE inventorydb;
+CREATE DATABASE paymentdb; --> \q
+
+==================================================================================================
+
+docker restart distributed-order-management-order-service-1
+docker restart distributed-order-management-inventory-service-1
+
+
+curl -X POST http://localhost:8081/orders   -H "Content-Type: application/json"   -d '{
+    "userId": "11111111-1111-1111-1111-111111111111",
+    "amount": 500,
+    "items": {
+      "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa": 2,
+      "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb": 1
+    }
+  }'
