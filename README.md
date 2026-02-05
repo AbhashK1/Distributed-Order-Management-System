@@ -3,13 +3,6 @@
 A real-world, event-driven microservices system that models how large e-commerce platforms process orders using Kafka, Redis, and Spring Boot.
 This project demonstrates how independent services communicate asynchronously to handle order creation, inventory reservation, payment processing, and customer notifications.
 
-## System Architecture
-
-
-
-
-All communication is **event-driven** — services never call each other directly.
-
 ---
 
 ## Tech Stack
@@ -96,6 +89,8 @@ curl -X POST http://localhost:8081/orders \
 Event Flow 
 
 ![Untitled Diagram (1)](https://github.com/user-attachments/assets/725d327d-8708-4c9b-a568-087c06770183)
+
+All communication is **event-driven** — services never call each other directly.
 
 Verify the Flow
 
