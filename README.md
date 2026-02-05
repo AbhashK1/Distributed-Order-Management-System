@@ -5,7 +5,6 @@ This project demonstrates how independent services communicate asynchronously to
 
 ## 🧠 System Architecture
 
-![Untitled Diagram (1)](https://github.com/user-attachments/assets/725d327d-8708-4c9b-a568-087c06770183)
 
 
 
@@ -64,21 +63,24 @@ All communication is **event-driven** — services never call each other directl
 ```
 
 🚀 How to Run
+
 1. Start the system
+
+```
 docker compose up --build
+```
+
 This launches:
 
-Kafka
-
-Zookeeper
-
-Redis
-
-PostgreSQL
-
-All microservices
+ - Kafka
+ - Zookeeper
+ - Redis
+ - PostgreSQL
+ - All microservices
 
 2. Create an order
+   
+```
 curl -X POST http://localhost:8081/orders \
 -H "Content-Type: application/json" \
 -d '{
@@ -89,55 +91,40 @@ curl -X POST http://localhost:8081/orders \
     "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb": 1
   }
 }'
-🔍 What Happens Internally
-Order Service saves the order
+```
 
-Publishes order.created
+🔍 Event Flow 
 
-Inventory Service reserves stock in Redis
-
-Publishes inventory.reserved
-
-Payment Service processes payment
-
-Publishes payment.success
-
-Notification Service logs confirmation
+![Untitled Diagram (1)](https://github.com/user-attachments/assets/725d327d-8708-4c9b-a568-087c06770183)
 
 🧪 Verify the Flow
+
 Watch logs:
 
+```
 docker logs distributed-order-management-inventory-service-1
 docker logs distributed-order-management-payment-service-1
 docker logs distributed-order-management-notification-service-1
+```
+
 You will see:
 
+```
 Inventory reserved
 Payment success
 Notification sent
+``` 
+
+
 🧩 Key Design Patterns Used
-Event-Driven Architecture
 
-Saga-style workflow
+ - Event-Driven Architecture
+ - Saga-style workflow
+ - Loose coupling via Kafka
+ - Idempotent message handling
+ - Redis atomic operations
+ - Asynchronous fault-tolerant processing
 
-Loose coupling via Kafka
-
-Idempotent message handling
-
-Redis atomic operations
-
-Asynchronous fault-tolerant processing
-
-🎯 Why This Project Matters
-This system mimics how companies like Amazon, Uber, and Flipkart handle:
-
-High traffic
-
-Distributed consistency
-
-Failures without crashing the system
-
-It is a production-grade microservices design built from scratch.
 
 🧑‍💻 Author
 Abhash Kumar
