@@ -55,7 +55,7 @@ This project demonstrates how independent services communicate asynchronously to
 }
 ```
 
-How to Run
+### How to Run
 
 1. Start the system
 
@@ -86,13 +86,13 @@ curl -X POST http://localhost:8081/orders \
 }'
 ```
 
-Event Flow 
+### Event Flow 
 
 ![Untitled Diagram (1)](https://github.com/user-attachments/assets/725d327d-8708-4c9b-a568-087c06770183)
 
 All communication is **event-driven** — services never call each other directly.
 
-Verify the Flow
+### Verify the Flow
 
 Watch logs:
 
