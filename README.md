@@ -115,8 +115,9 @@ Payment success
 Notification sent
 ``` 
 
+---
 
-Key Design Patterns Used
+## Key Design Patterns Used
 
  - Event-Driven Architecture
  - Saga-style workflow
