@@ -126,7 +126,5 @@ Key Design Patterns Used
  - Asynchronous fault-tolerant processing
 
 
-🧑‍💻 Author
+Author:
 Abhash Kumar
-Associate Software Engineer – Accenture
-Backend | Distributed Systems | Kafka | Cloud | Java
