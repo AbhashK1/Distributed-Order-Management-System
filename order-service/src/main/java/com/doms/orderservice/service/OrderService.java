@@ -6,7 +6,6 @@ import java.util.UUID;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,28 +25,29 @@ public class OrderService {
     private final KafkaTemplate<String, String> kafkaTemplate;
     private final ObjectMapper objectMapper;
 
-    //Create an order and publishes a complete OrderCreatedEvent
+    //create order and publish a complete OrderCreatedEvent
     //containing product → quantity mapping for Inventory Service
     @Transactional
     public Order createOrder(
             UUID userId,
             BigDecimal amount,
-            Map<UUID, Integer> items   // <-- productId -> quantity
-    ) {
+            Map<UUID, Integer> items
+        ) {
         try {
             Order order = new Order();
             order.setUserId(userId);
             order.setTotalAmount(amount);
             order.setStatus("CREATED");
+            order.setItems(items); //saved items here
 
-            orderRepository.save(order);
+            order = orderRepository.save(order);  // get persisted order with ID
 
-            //send order details to Inventory
+            //Kafka event from DB-backed order
             OrderCreatedEvent event = new OrderCreatedEvent(
                     order.getId(),
                     order.getUserId(),
                     order.getTotalAmount(),
-                    items
+                    order.getItems()
             );
 
             String payload = objectMapper.writeValueAsString(event);
@@ -62,10 +62,8 @@ public class OrderService {
     public Page<Order> getOrders(UUID userId, int page, int size) {
         return orderRepository.findByUserId(
                 userId,
-                PageRequest.of(page, size, Sort.by("createdAt").descending())
+                PageRequest.of(page, size)
         );
     }
 }
-
-
 
