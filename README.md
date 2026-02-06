@@ -3,12 +3,16 @@
 A real-world, event-driven microservices system that models how large e-commerce platforms process orders using Kafka, Redis, and Spring Boot.
 This project demonstrates how independent services communicate asynchronously to handle order creation, inventory reservation, payment processing, and customer notifications.
 
+This project includes a lightweight interactive web UI built with Streamlit to visualize and test the entire distributed order flow in real time.
+The UI allows you to place orders, track them, and observe how they move through Kafka-driven microservices — without reading logs. Use the demo UI like this
+
 ---
 
 ## Tech Stack
 
 | Layer | Technology |
 |------|-----------|
+| Demo Frontend | Streamlit |
 | Backend | Spring Boot (Java) |
 | Messaging | Apache Kafka |
 | Cache / Inventory | Redis |
@@ -55,7 +59,39 @@ This project demonstrates how independent services communicate asynchronously to
 }
 ```
 
-### How to Run
+## Event Flow 
+
+![Untitled Diagram (1)](https://github.com/user-attachments/assets/725d327d-8708-4c9b-a568-087c06770183)
+
+All communication is **event-driven** — services never call each other directly.
+
+## How to Run
+
+### Use Demo UI
+
+1. Running the UI
+   
+```
+cd doms-ui
+pip install -r requirements.txt
+streamlit run app.py
+```
+
+Then open:
+
+```
+http://localhost:8501
+```
+
+2. Example Flow
+
+Enter a User ID
+Add Product IDs & Quantities
+Click Place Order
+Click Refresh Orders
+Watch orders appear and propagate through services
+
+### Use CLI
 
 1. Start the system
 
@@ -86,13 +122,8 @@ curl -X POST http://localhost:8081/orders \
 }'
 ```
 
-### Event Flow 
 
-![Untitled Diagram (1)](https://github.com/user-attachments/assets/725d327d-8708-4c9b-a568-087c06770183)
-
-All communication is **event-driven** — services never call each other directly.
-
-### Verify the Flow
+3. Verify the Flow
 
 Watch logs:
 
