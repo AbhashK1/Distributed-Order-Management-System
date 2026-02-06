@@ -85,11 +85,7 @@ http://localhost:8501
 
 2. Example Flow
 
-Enter a User ID
-Add Product IDs & Quantities
-Click Place Order
-Click Refresh Orders
-Watch orders appear and propagate through services
+Enter a User ID -> Add Product IDs & Quantities -> Click Place Order -> Click Refresh Orders -> Watch orders appear and propagate through services
 
 ### Use CLI
 
